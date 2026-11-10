@@ -1,0 +1,16 @@
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+.idea/
+.vscode/
+.settings/
+target/
+build/
+out/
+logs/
+.DS_Store
+Thumbs.db
+.env
+*.log
