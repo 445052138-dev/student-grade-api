@@ -1,23 +1,16 @@
 package com.example.grades;
 
+import org.springframework.web.bind.annotation.*;
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
 public class StudentController {
     private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
-    private final List<Student> students = new ArrayList<>(List.of(
+
+    private List<Student> students = new ArrayList<>(List.of(
         new Student(1L, "Ahmed", "SE4111", 95.0),
         new Student(2L, "Sara", "SE4111", 88.5)
     ));
@@ -30,17 +23,17 @@ public class StudentController {
     @GetMapping("/students/{id}")
     public Student getById(@PathVariable Long id) {
         return students.stream()
-            .filter(student -> student.getId().equals(id))
+            .filter(s -> s.getId().equals(id))
             .findFirst()
             .orElse(null);
     }
 
     @PostMapping("/students")
-    public Student add(@RequestBody Student student) {
-        student.setId(students.stream().mapToLong(Student::getId).max().orElse(0L) + 1L);
-        students.add(student);
-        logger.info("Added student: id={}, name={}", student.getId(), student.getName());
-        return student;
+    public Student add(@RequestBody Student s) {
+        s.setId((long) (students.size() + 1));
+        students.add(s);
+        logger.info("Added student: id={}, name={}", s.getId(), s.getName());
+        return s;
     }
 
     @GetMapping("/health")
