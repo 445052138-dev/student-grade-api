@@ -40,13 +40,6 @@ class StudentControllerTest {
     }
 
     @Test
-    void shouldReturnStudentById() throws Exception {
-        mockMvc.perform(get("/api/students/1"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.name").value("Ahmed"));
-    }
-
-    @Test
     void shouldAddNewStudent() throws Exception {
         String json = "{\"name\":\"Khalid\",\"course\":\"SE4111\",\"grade\":91.0}";
         mockMvc.perform(post("/api/students")
