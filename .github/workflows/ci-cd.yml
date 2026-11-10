@@ -32,7 +32,7 @@ jobs:
         if: github.event_name == 'push'
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn --batch-mode sonar:sonar
+        run: mvn --batch-mode org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
       - name: Log in to Docker Hub
         if: github.event_name == 'push'
